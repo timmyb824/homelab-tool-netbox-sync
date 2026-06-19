@@ -327,12 +327,14 @@ def sync_proxmox(
         node_name = node["node"]
         log.info(f"Processing Proxmox node: {node_name}")
 
+        node_site_slug = "home" if node_name.startswith("pve") else site_slug
+
         device = upsert_device(
             nb,
             name=node_name,
             role_slug="proxmox-node",
             platform_slug="proxmox",
-            site_slug=site_slug,
+            site_slug=node_site_slug,
             dry_run=dry_run,
         )
 
